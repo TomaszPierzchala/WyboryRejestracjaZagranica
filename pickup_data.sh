@@ -33,7 +33,7 @@ if [ -z $1 ]; then
  date
  printf "Liczba zarejestrowanych za granicą %'d w %d krajach ( w %d obwodach ).\n" "$sum" "$s_country" "$obwody"
 else
- echo `date`,$sum,$s_country,$obwody
+ echo `date`,$sum,$s_country,$obwody >> wyniki.out
 fi
 sort -k 2 -t , -g -r ranking.out > ranking.sorted
 
