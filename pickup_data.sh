@@ -17,7 +17,6 @@ do
 	[[ "$res" =~ "brak dostępnych komisji o wybranym sposobie głosowania" ]] && continue
 	ilosc=`echo $res |grep -E -A2 "liczba zarejestrowanych"  | grep -oE '>[[:digit:]]+<'| grep -oE [[:digit:]]+ `
 	
-
 	add=0
 	while read -r il; do
 	   add=$((add + il))
