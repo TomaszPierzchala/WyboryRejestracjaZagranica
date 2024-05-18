@@ -1,7 +1,6 @@
 #!/bin/sh
 
-CURL="curl 'https://ewybory.msz.gov.pl/home/CommissionsList?countryId=__I__&typeOfVoting=Personally&_=__UNIX__' --compressed -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/117.0' -H 'Accept: text/html, */*; q=0.01' -H 'Accept-Language: pl,en-US;q=0.7,en;q=0.3' -H 'Accept-Encoding: gzip, deflate, br' -H 'X-Requested-With: XMLHttpRequest' -H 'Connection: keep-alive' -H 'Referer: https://ewybory.msz.gov.pl/zmien-miejsce-glosowania' -H 'Cookie: ApplicationGatewayAffinityCORS=41dc337ab3e312fffcedd30c9a8613f7; ApplicationGatewayAffinity=41dc337ab3e312fffcedd30c9a8613f7; contrast=false; size=a; ASP.NET_SessionId=hceauektisrhwhgru43uabzo; AcceptedPolicyJS=default; BIGipServer~MC-WIP~POOL-eWybory-public=rd4o00000000000000000000ffff0a0a2a05o443' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'TE: trailers'"
-
+CURL="curl 'https://ewybory.msz.gov.pl/home/CommissionsList?countryId=__I__&typeOfVoting=Personally&_=__UNIX__' --compressed -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:125.0) Gecko/20100101 Firefox/125.0' -H 'Accept: text/html, */*; q=0.01' -H 'Accept-Language: pl,en-US;q=0.7,en;q=0.3' -H 'Accept-Encoding: gzip, deflate, br' -H 'Referer: https://ewybory.msz.gov.pl/nowa-rejestracja' -H 'X-Requested-With: XMLHttpRequest' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'Connection: keep-alive' -H 'Cookie: visid_incap_3089413=rIXGfIcjQ9Cb8WiYnpa1rKCtSGYAAAAAQ0IPAAAAAACAtmm0AcI78dYYLj0ChGZFqMJNzw5UUU/W; incap_ses_276_3089413=ZDVJIdeE3RLXwedHnIzUA98CSWYAAAAARaqKhwUg19vf51DS7WkShg==; ApplicationGatewayAffinityCORS=41dc337ab3e312fffcedd30c9a8613f7; ApplicationGatewayAffinity=41dc337ab3e312fffcedd30c9a8613f7; nlbi_3089413=EKW2G6vOxj41W9+p1tTMqwAAAAA+68vH4F0cRFSrfWSH4Hd1; nlbi_3089413_2147483394=a5hjIqwG/UHRQu621tTMqwAAAACnTGwQQ4hD5RKOWhnS/rfj; ASP.NET_SessionId=lsqc5k1v0goufpw0u4dvkujk; contrast=false; size=a; AcceptedPolicyJS=default; BIGipServer~MC-WIP~POOL-eWybory-public=rd4o00000000000000000000ffff0a0a2a05o443' -H 'TE: trailers'"
 EPOCH="$(( $(date -j -v -1d +%s) * 1000 ))"
 #set -x
 source getCountry.sh
@@ -17,6 +16,7 @@ do
 	res=$(eval $(echo "$CURL"| sed "s/__I__/$i/g; s/__UNIX__/$EPOCH/g") 2>/dev/null);
 	[[ "$res" =~ "brak dostępnych komisji o wybranym sposobie głosowania" ]] && continue
 	ilosc=`echo $res |grep -E -A2 "liczba zarejestrowanych"  | grep -oE '>[[:digit:]]+<'| grep -oE [[:digit:]]+ `
+	
 
 	add=0
 	while read -r il; do
