@@ -69,7 +69,7 @@ slope, intercept = coefficients
 slope *= 24*3600
 plt.text(datetime(2024, 5, 14, 6), 55000, f'Przyrost dzienny: +{slope:.0f} / [dzień]', fontsize=12, color='red')
 # Add the logo text "@ala"
-plt.text(datetime(2024, 6, 2), 55000, '@linux_wins', fontsize=10, color='blue', weight='bold')
+plt.text(datetime(2024, 6, 1, 12), 55000, '@linux_wins', fontsize=10, color='blue', weight='bold')
 
 plt.xlabel('Data')
 plt.ylabel('Suma')
