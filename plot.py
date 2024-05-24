@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from datetime import datetime
 import numpy as np
-from scipy.optimize import curve_fit
 
 # Mapping Polish month names to numbers
 month_map = {
@@ -26,10 +25,6 @@ def parse_date(date_str):
     date_parts[2] = month_map[date_parts[2]]
     formatted_date_str = ' '.join(date_parts[1:5]) + ' ' + date_parts[5]
     return datetime.strptime(formatted_date_str, '%d %m %H:%M:%S %Y CEST')
-
-# Exponential function for fitting
-def exp_func(x, a, b, c):
-    return a * np.exp( x/86400. - b) + c
 
 
 # Read the file content
@@ -55,8 +50,8 @@ poly = np.poly1d(coefficients)
 df['Trend'] = poly(df['Date_num'])
 
 # Define the extended range for the trend line
-start_date = datetime(2024, 5, 14)
-end_date = datetime(2024, 5, 27)
+start_date = datetime(2024, 5, 18)
+end_date = datetime(2024, 6, 6)
 extended_dates = pd.date_range(start=start_date, end=end_date, freq='D')
 
 # Convert extended dates to numerical values
@@ -65,33 +60,19 @@ extended_dates_num = extended_dates.map(datetime.timestamp)
 # Calculate the trend values for the extended range
 extended_trend = poly(extended_dates_num)
 
-# Perform exponential fitting
-popt, pcov = curve_fit(exp_func, df['Date_num'], df['Suma'], p0=(0.001, 19868., 10000.), bounds=([1e-5, 10000., 1000.], [1., 20000., 35000.]))
-
-print(datetime(2024, 5, 25).timestamp()-datetime(2024, 5, 17).timestamp())
-print(datetime(2024, 5, 25).timestamp()/86400.)
-
-# Calculate exponential trend values for the extended range
-extended_exp_trend = exp_func(extended_dates_num, *popt)
-
 # Plotting the data
 plt.figure(figsize=(10, 6))
 plt.plot(df['Date'], df['Suma'], marker='o', label='Suma zarejestrowanych')
 plt.plot(extended_dates, extended_trend, label='Aproksymacja liniowa', linestyle='--')
-plt.plot(extended_dates, extended_exp_trend, label='Aproksymacja wykładnicza', linestyle='--')
 
 # Display the linear regression equation on the plot
 ## Extract the slope and intercept
 slope, intercept = coefficients
 slope *= 24*3600
-plt.text(datetime(2024, 5, 14, 6), 55000, f'Przyrost dzienny: +{slope:.0f} / [dzień]', fontsize=12, color='red')
-
-# Display the exponential regression equation on the plot
-exp_equation_text = f'Y = {popt[0]:.2f} * exp(X - {popt[1]:.2e}) + {popt[2]:.2e}'
-plt.text(datetime(2024, 5, 14, 6), 50000, exp_equation_text, fontsize=12, color='green')
+plt.text(datetime(2024, 5, 17, 18), 41000, f'Przyrost dzienny:  +{slope:.0f}  /  [dzień]', fontsize=12, color='red')
 
 # Add the logo text "@ala"
-plt.text(datetime(2024, 6, 1, 12), 55000, '@linux_wins', fontsize=10, color='blue', weight='bold')
+plt.text(datetime(2024, 6, 2, 23, 40), 11000, '@linux_wins', fontsize=9, color='blue', weight='bold')
 
 plt.xlabel('Data')
 plt.ylabel('Suma')
