@@ -26,6 +26,17 @@ def parse_date(date_str):
     formatted_date_str = ' '.join(date_parts[1:5]) + ' ' + date_parts[5]
     return datetime.strptime(formatted_date_str, '%d %m %H:%M:%S %Y CEST')
 
+def save_przyrost(ile):
+    # Pobranie obecnego czasu
+    current_time = datetime.now()
+
+    # Formatuj datę i czas zgodnie z wymaganiami
+    formatted_time = current_time.strftime('%d %m %Y %H:%M:%S')
+
+    # Otwieranie pliku do zapisu
+    with open('zmiana.out', 'a') as file:
+        # Zapis do pliku w formacie 'dd mm yyyy HH:MM:SS, number'
+        file.write(f'{formatted_time}, {ile:.0f}\n')
 
 # Read the file content
 file_path = 'wyniki.out'  # Replace with the path to your file
@@ -47,7 +58,10 @@ df['Date_num'] = df['Date'].apply(datetime.timestamp)
 # Perform linear regression
 coefficients = np.polyfit(df['Date_num'], df['Suma'], 1)
 poly = np.poly1d(coefficients)
-df['Trend'] = poly(df['Date_num'])
+
+# Perform pol2 regression
+coefficients2 = np.polyfit(df['Date_num'], df['Suma'], 2)
+poly2 = np.poly1d(coefficients2)
 
 # Define the extended range for the trend line
 start_date = datetime(2024, 5, 18)
@@ -59,19 +73,22 @@ extended_dates_num = extended_dates.map(datetime.timestamp)
 
 # Calculate the trend values for the extended range
 extended_trend = poly(extended_dates_num)
+extended_trend2 = poly2(extended_dates_num)
 
 # Plotting the data
 plt.figure(figsize=(10, 6))
 plt.plot(df['Date'], df['Suma'], marker='o', label='Suma zarejestrowanych')
-plt.plot(extended_dates, extended_trend, label='Aproksymacja liniowa', linestyle='--')
+plt.plot(extended_dates, extended_trend, label='Aproksymacja liniowa', linestyle='--', color='red')
+plt.plot(extended_dates, extended_trend2, label='Aproksymacja kwadratowa', linestyle='--', color='green')
 
 # Display the linear regression equation on the plot
 ## Extract the slope and intercept
 slope, intercept = coefficients
 slope *= 24*3600
 plt.text(datetime(2024, 5, 17, 18), 41000, f'Przyrost dzienny:  +{slope:.0f}  /  [dzień]', fontsize=12, color='red')
+save_przyrost(slope)
 
-# Add the logo text "@ala"
+# Add the logo text
 plt.text(datetime(2024, 6, 2, 23, 40), 11000, '@linux_wins', fontsize=9, color='blue', weight='bold')
 
 plt.xlabel('Data')
