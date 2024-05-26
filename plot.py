@@ -85,7 +85,7 @@ plt.plot(extended_dates, extended_trend2, label='Aproksymacja kwadratowa', lines
 ## Extract the slope and intercept
 slope, intercept = coefficients
 slope *= 24*3600
-plt.text(datetime(2024, 5, 17, 18), 41000, f'Przyrost dzienny:  +{slope:.0f}  /  [dzień]', fontsize=12, color='red')
+plt.text(datetime(2024, 5, 17, 20), 41000, f'średni przyrost dzienny:  +{slope:.0f}  /  [dzień]', fontsize=12, color='red')
 save_przyrost(slope)
 
 # Add the logo text
