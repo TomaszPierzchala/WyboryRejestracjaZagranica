@@ -52,16 +52,25 @@ with open(file_path, 'r', encoding='utf-8') as file:
 # Convert to DataFrame
 df = pd.DataFrame(data, columns=['Date', 'Suma'])
 
+# Konwersja kolumny dat na typ daty
+# df['Date'] = pd.to_datetime(df['Date'])
 # Convert datetime to numerical values for regression
+#
 df['Date_num'] = df['Date'].apply(datetime.timestamp)
 
+cutoff_date = datetime(2024, 5, 27).timestamp()
+filtered_df = df[df['Date_num'] < cutoff_date]
+
+
 # Perform linear regression
-coefficients = np.polyfit(df['Date_num'], df['Suma'], 1)
+coefficients = np.polyfit(filtered_df['Date_num'], filtered_df['Suma'], 1)
 poly = np.poly1d(coefficients)
 
-# Perform pol2 regression
-coefficients2 = np.polyfit(df['Date_num'], df['Suma'], 2)
-poly2 = np.poly1d(coefficients2)
+# Perform polN regression
+coefficientsN = np.polyfit(df['Date_num'], df['Suma'], 3)
+polyN = np.poly1d(coefficientsN)
+coefNdiff = np.array([3.*coefficientsN[0], 2.*coefficientsN[1], coefficientsN[2]])
+polyNdiff = np.poly1d(coefNdiff)
 
 # Define the extended range for the trend line
 start_date = datetime(2024, 5, 18)
@@ -73,20 +82,17 @@ extended_dates_num = extended_dates.map(datetime.timestamp)
 
 # Calculate the trend values for the extended range
 extended_trend = poly(extended_dates_num)
-extended_trend2 = poly2(extended_dates_num)
+extended_trendN = polyN(extended_dates_num)
 
 # Plotting the data
 plt.figure(figsize=(10, 6))
 plt.plot(df['Date'], df['Suma'], marker='o', label='Suma zarejestrowanych')
-plt.plot(extended_dates, extended_trend, label='Aproksymacja liniowa', linestyle='--', color='red')
-plt.plot(extended_dates, extended_trend2, label='Aproksymacja kwadratowa', linestyle='--', color='green')
+plt.plot(extended_dates, extended_trend, label='Aproksymacja liniowa do dnia 2024-05-27', linestyle='--', color='red')
+plt.plot(extended_dates, extended_trendN, label='Aproksymacją wielomianową trzeciego stopnia', linestyle='--', color='green')
 
-# Display the linear regression equation on the plot
-## Extract the slope and intercept
-slope, intercept = coefficients
-slope *= 24*3600
-plt.text(datetime(2024, 5, 17, 20), 41000, f'średni przyrost dzienny:  +{slope:.0f}  /  [dzień]', fontsize=12, color='red')
-save_przyrost(slope)
+# Display the polinomial regression equation on the plot
+cslope = polyNdiff(df['Date_num'].max()) * 24*3600
+plt.text(datetime(2024, 5, 17, 21), 51000, f'przyrost dzienny z aproksymacji kubicznej:  +{cslope:.0f}  /  [dzień]', fontsize=12, color='green', fontweight='bold')
 
 # Add the logo text
 plt.text(datetime(2024, 6, 2, 23, 40), 11000, '@linux_wins', fontsize=9, color='blue', weight='bold')
