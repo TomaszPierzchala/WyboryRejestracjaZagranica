@@ -92,7 +92,7 @@ plt.plot(extended_dates, extended_trendN, label='Aproksymacją wielomianową trz
 
 # Display the polinomial regression equation on the plot
 cslope = polyNdiff(df['Date_num'].max()) * 24*3600
-plt.text(datetime(2024, 5, 17, 21), 51000, f'przyrost dzienny z aproksymacji kubicznej:  +{cslope:.0f}  /  [dzień]', fontsize=12, color='green', fontweight='bold')
+plt.text(datetime(2024, 5, 17, 17), 61000, f'przyrost dzienny z aproksymacji kubicznej:  +{cslope:.0f}  /  [dzień]', fontsize=12, color='green', fontweight='bold')
 
 # Add the logo text
 plt.text(datetime(2024, 6, 2, 23, 40), 11000, '@linux_wins', fontsize=9, color='blue', weight='bold')
