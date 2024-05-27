@@ -88,7 +88,7 @@ extended_trendN = polyN(extended_dates_num)
 plt.figure(figsize=(10, 6))
 plt.plot(df['Date'], df['Suma'], marker='o', label='Suma zarejestrowanych')
 plt.plot(extended_dates, extended_trend, label='Aproksymacja liniowa do dnia 2024-05-27', linestyle='--', color='red')
-plt.plot(extended_dates, extended_trendN, label='Aproksymacją wielomianową trzeciego stopnia', linestyle='--', color='green')
+plt.plot(extended_dates, extended_trendN, label='Aproksymacja wielomianowa trzeciego stopnia', linestyle='--', color='green')
 
 # Display the polinomial regression equation on the plot
 cslope = polyNdiff(df['Date_num'].max()) * 24*3600
