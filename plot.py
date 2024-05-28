@@ -52,10 +52,7 @@ with open(file_path, 'r', encoding='utf-8') as file:
 # Convert to DataFrame
 df = pd.DataFrame(data, columns=['Date', 'Suma'])
 
-# Konwersja kolumny dat na typ daty
-# df['Date'] = pd.to_datetime(df['Date'])
 # Convert datetime to numerical values for regression
-#
 df['Date_num'] = df['Date'].apply(datetime.timestamp)
 
 cutoff_date = datetime(2024, 5, 27).timestamp()
@@ -85,18 +82,23 @@ extended_trend = poly(extended_dates_num)
 extended_trendN = polyN(extended_dates_num)
 
 # Plotting the data
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(12, 7))
 plt.plot(df['Date'], df['Suma'], marker='o', label='Suma zarejestrowanych')
 plt.plot(extended_dates, extended_trend, label='Aproksymacja liniowa do dnia 2024-05-27', linestyle='--', color='red')
 plt.plot(extended_dates, extended_trendN, label='Aproksymacja wielomianowa trzeciego stopnia', linestyle='--', color='green')
+plt.axvline(datetime(2024, 6, 4, 23, 59), ymax=0.95, color='blue', linestyle='-', linewidth=2, label='Koniec rejestracji o 23:59 2024-06-04')
+plt.axhline(y=106397, xmin=0.4, xmax=0.96, color='orange', linestyle='-', linewidth=2, label='106 397 - liczba rejestracji w wyborach do PE 2019')
+
 
 # Display the polinomial regression equation on the plot
 cslope = polyNdiff(df['Date_num'].max()) * 24*3600
-plt.text(datetime(2024, 5, 17, 17), 61000, f'przyrost dzienny z aproksymacji kubicznej:  +{cslope:.0f}  /  [dzień]', fontsize=12, color='green', fontweight='bold')
+plt.text(datetime(2024, 5, 17, 17), 62500, f'przyrost dzienny z aproksymacji kubicznej:  +{cslope:.0f}  /  [dzień]', fontsize=12, color='green', fontweight='bold')
 
 # Add the logo text
-plt.text(datetime(2024, 6, 2, 23, 40), 11000, '@linux_wins', fontsize=9, color='blue', weight='bold')
+plt.text(datetime(2024, 6, 1, 4), 12000, '@linux_wins', fontsize=9, color='blue', weight='bold')
 
+# Dostosowanie zakresu osi Y
+plt.ylim(10_000, 120_000 )
 plt.xlabel('Data')
 plt.ylabel('Suma')
 plt.title('Liczba zarejstrowanych wyborców za granicą oraz ich aproksymacja na przestrzeni czasu zapisów', fontweight='bold')
