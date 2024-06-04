@@ -89,6 +89,8 @@ plt.plot(extended_dates, extended_trendN, label='Aproksymacja wielomianowa trzec
 plt.axvline(datetime(2024, 6, 4, 23, 59), ymax=0.95, color='blue', linestyle='-', linewidth=2, label='Koniec rejestracji o 23:59 2024-06-04')
 plt.axhline(y=106397, xmin=0.4, xmax=0.96, color='orange', linestyle='-', linewidth=2, label='106 397 - liczba rejestracji w wyborach do PE 2019')
 
+plt.text(datetime(2024, 5, 30, 1), 95000, f'liczba zarejestrowanych {df["Suma"].max()}', fontsize=12, color='blue', fontweight='bold')
+plt.text(datetime(2024, 5, 30, 1), 91000, f'na {df["Date"].max()}', fontsize=12, color='blue', fontweight='bold')
 
 # Display the polinomial regression equation on the plot
 cslope = polyNdiff(df['Date_num'].max()) * 24*3600
