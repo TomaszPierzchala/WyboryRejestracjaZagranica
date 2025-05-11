@@ -2,6 +2,7 @@
 ### wstęp
 aby pobieranie danych działało, trzeba uzyskać dane kraj.id kraj.name
 pobierając dane przez HTTP GET https://ewybory.msz.gov.pl/api/configuration/getCountries i otczydując z uzyskanego JSONa przez skrypt kraje.sh
+Plik kraje powinien zawierać kraje posortowane po id.
 
 ### główne działanie
 Główny skrypt `pickup_data.sh` czyta dane z https://ewybory.msz.gov.pl/zmien-miejsce-glosowania
