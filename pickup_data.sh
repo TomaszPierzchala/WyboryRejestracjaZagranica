@@ -1,8 +1,7 @@
 #!/bin/sh
 
-#CURL="curl 'https://ewybory.msz.gov.pl/home/CommissionsList?countryId=__I__&typeOfVoting=Personally&_=__UNIX__' --compressed -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:126.0) Gecko/20100101 Firefox/126.0' -H 'Accept: text/html, */*; q=0.01' -H 'Accept-Language: pl,en-US;q=0.7,en;q=0.3' -H 'Accept-Encoding: gzip, deflate, br, zstd' -H 'Referer: https://ewybory.msz.gov.pl/zmien-miejsce-glosowania' -H 'X-Requested-With: XMLHttpRequest' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'Connection: keep-alive' -H 'Cookie: ApplicationGatewayAffinityCORS=41dc337ab3e312fffcedd30c9a8613f7; ApplicationGatewayAffinity=41dc337ab3e312fffcedd30c9a8613f7; ASP.NET_SessionId=s0ltk5fl2waqenz4k21t5kwu; nlbi_3089413=G5mzV5IoLSoDX3/S1tTMqwAAAACxtpq5dvnKt5NeRv9pAl00; visid_incap_3089413=0Ljy0xJST9SGL7WBWRVr7UN0WGYAAAAAQ0IPAAAAAACA0LS0AcI78UyYPhPLyB3SJ+nPxLmw6vIU; incap_ses_7235_3089413=jLABeWwxXmHwjgHUOOJnZLa9XmYAAAAAg2pFTiCvGihMYl3RNj+2qQ==; contrast=false; size=a; nlbi_3089413_2147483394=nCkYW0LWKSxwpOxy1tTMqwAAAAAPUWbxIYDVG1yVQYUhiIYu; incap_ses_7234_3089413=dZi7TIa6bhH9CSMtulRkZNVfWmYAAAAAIoIuBny9lKFHd3A4Gvxb2w==; AcceptedPolicyJS=default; incap_ses_276_3089413=brvgRk6B7XEpCWWinozUAzf1XGYAAAAACcsrzx5gzAoOpRFY3vmPFg==; incap_ses_720_3089413=W7xcTia1lXVL/StnRPT9CVMGYGYAAAAAbZvA0QnWLLX6ezQnc42QwQ==; BIGipServer~MC-WIP~POOL-eWybory-public=rd4o00000000000000000000ffff0a0a2a05o443' -H 'Priority: u=1' -H 'TE: trailers'"
-CURL="curl 'https://ewybory.msz.gov.pl/api/configuration/getCommissions?typeOfVoting=1&countryId=__I__' --compressed -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0' -H 'Accept: application/json, text/plain, */*' -H 'Accept-Language: pl,en-US;q=0.7,en;q=0.3' -H 'Accept-Encoding: gzip, deflate, br, zstd' -H 'Connection: keep-alive' -H 'Referer: https://ewybory.msz.gov.pl/nowa-rejestracja' -H 'Cookie: ApplicationGatewayAffinityCORS=41dc337ab3e312fffcedd30c9a8613f7; ApplicationGatewayAffinity=41dc337ab3e312fffcedd30c9a8613f7; ASP.NET_SessionId=s0ltk5fl2waqenz4k21t5kwu; nlbi_3089413=G5mzV5IoLSoDX3/S1tTMqwAAAACxtpq5dvnKt5NeRv9pAl00; nlbi_3089413_2147483394=6v9ObiqnyTZeiG5u1tTMqwAAAAD8yPGJRTulf49iuJX7oHe9; visid_incap_3089413=7S7EtprRSQSXrSyLV1o2GX4eH2gAAAAAQUIPAAAAAABbhbWARYTsn1dAjUOeimUV; incap_ses_260_3089413=yvk5e+WEW16ctaJM17SbA9hRH2gAAAAAaNwl5cj+4MRlkjYdTjfPCg==; cookiesConsent=all; BIGipServer~MC-WIP~POOL-eWybory-public=rd4o00000000000000000000ffff0a0a2a12o443' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'Priority: u=0' -H 'TE: trailers'"
-EPOCH="$(( $(date -j -v -1d +%s) * 1000 ))"
+#CURL="curl 'https://ewybory.msz.gov.pl/api/configuration/getCommissions?typeOfVoting=1&countryId=__I__' --compressed -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0' -H 'Accept: application/json, text/plain, */*' -H 'Accept-Language: pl,en-US;q=0.7,en;q=0.3' -H 'Accept-Encoding: gzip, deflate, br, zstd' -H 'Connection: keep-alive' -H 'Referer: https://ewybory.msz.gov.pl/nowa-rejestracja' -H 'Cookie: ApplicationGatewayAffinityCORS=41dc337ab3e312fffcedd30c9a8613f7; ApplicationGatewayAffinity=41dc337ab3e312fffcedd30c9a8613f7; ASP.NET_SessionId=s0ltk5fl2waqenz4k21t5kwu; nlbi_3089413=G5mzV5IoLSoDX3/S1tTMqwAAAACxtpq5dvnKt5NeRv9pAl00; nlbi_3089413_2147483394=6v9ObiqnyTZeiG5u1tTMqwAAAAD8yPGJRTulf49iuJX7oHe9; visid_incap_3089413=7S7EtprRSQSXrSyLV1o2GX4eH2gAAAAAQUIPAAAAAABbhbWARYTsn1dAjUOeimUV; incap_ses_260_3089413=+qWXCqfLk0Xvn91M17SbAxiEH2gAAAAARHtT93PhZoMcGSnqE9SZhg==; cookiesConsent=all' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'Priority: u=0'"
+CURL="curl 'https://ewybory.msz.gov.pl/api/configuration/getCommissions?typeOfVoting=1&countryId=__I__' --compressed -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:138.0) Gecko/20100101 Firefox/138.0' -H 'Accept: application/json, text/plain, */*' -H 'Accept-Language: pl,en-US;q=0.7,en;q=0.3' -H 'Accept-Encoding: gzip, deflate, br, zstd' -H 'Connection: keep-alive' -H 'Referer: https://ewybory.msz.gov.pl/nowa-rejestracja' -H 'Cookie: ApplicationGatewayAffinityCORS=41dc337ab3e312fffcedd30c9a8613f7; ApplicationGatewayAffinity=41dc337ab3e312fffcedd30c9a8613f7; ASP.NET_SessionId=s0ltk5fl2waqenz4k21t5kwu; nlbi_3089413=G5mzV5IoLSoDX3/S1tTMqwAAAACxtpq5dvnKt5NeRv9pAl00; nlbi_3089413_2147483394=6v9ObiqnyTZeiG5u1tTMqwAAAAD8yPGJRTulf49iuJX7oHe9; visid_incap_3089413=7S7EtprRSQSXrSyLV1o2GX4eH2gAAAAAQUIPAAAAAABbhbWARYTsn1dAjUOeimUV; incap_ses_260_3089413=l1lGLFMvshpK3+9N17SbAx2PIGgAAAAA4dRdaQElyTz0iYZBbHX00w==; cookiesConsent=all; BIGipServer~MC-WIP~POOL-eWybory-public=rd4o00000000000000000000ffff0a0a2a15o443' -H 'Sec-Fetch-Dest: empty' -H 'Sec-Fetch-Mode: cors' -H 'Sec-Fetch-Site: same-origin' -H 'Priority: u=0'"
 #set -x
 source getCountry.sh
 
@@ -11,13 +10,25 @@ export LANG="pl_PL.UTF-8"
 sum=0
 obwody=0
 s_country=0
-for i in {2..100};
+last=`sort -k1g kraje |tail -1 |cut -f1 -d" "`
+for i in $(seq 1 $last);
 do
-	[[ $(( i % 10 )) -eq 0 ]] && [[ -z $1 ]] && printf "Wykonano %d%%\r" "$i"
-	res=$(eval $(echo "$CURL"| sed "s/__I__/$i/g; s/__UNIX__/$EPOCH/g") 2>/dev/null);
-	[[ "$res" =~ "brak dostępnych komisji o wybranym sposobie głosowania" ]] && continue
+    [[ $(( i % 10 )) -eq 0 ]] && [[ -z $1 ]] && printf "Wykonano %d%%\r" "$((i * 100 / last))"
+    
+    country=`getCountry $i`
+    countryId=`echo $country | cut -f1 -d" "`
+    countryName=`echo $country | cut -f2- -d" "`
+	#echo countryId $countryId countryName $countryName
+    sleep 0.05
+    res=$(eval $(echo "$CURL"| sed "s/__I__/$countryId/g;") 2>/dev/null);
+	
+	[[ "$res" =~ "html" || "$(echo "$res" | jq '(.commissions | length) == 0')" == "true" ]] && continue
+	#[[ "$res" =~ "html" ]] && echo "ERROR : $countryName" && continue
+    #[[ "$(echo "$res" | jq '(.commissions | length) == 0')" == "true" ]] && echo ERROR :  $countryName "[]=0" && continue
+	
 	ilosc=$(echo "$res" | jq -r '.commissions[].acceptedRegistrationsCount')
-
+	
+	#echo countryName $countryName ilosc $ilosc
 	add=0
 	while read -r il; do
 	   add=$((add + il))
@@ -25,8 +36,8 @@ do
 	done <<< "$ilosc"
 	sum=$((sum + add))
 	s_country=$((s_country + 1))
-	name=`getCountry $i`
-	echo $name, $add, $i >> ranking.out
+	echo $countryName, $add, $countryId >> ranking.out
+	
 done
 if [ -z $1 ]; then
  echo ""
