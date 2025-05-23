@@ -1,8 +1,7 @@
 crontab
 ranking.*
 python*
-run_update.sh
 kraje.*
 co2*
 countries.json
-incap.ses_260_3089413
+incap.cookies
